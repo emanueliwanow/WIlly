@@ -58,39 +58,41 @@ int executarAcao(int codigoAcao)
     switch(codigoAcao)
     {
     case A01:
-        Serial.print(" Acao: ");
-        Serial.println("A01");
+        //Serial.print(" Acao: ");
+        //Serial.println("A01");
         
         break;
     case A02:
-        Serial.print(" Acao: ");
-        Serial.println("A02");
+        //Serial.print(" Acao: ");
+        //Serial.println("A02");
         motors.disarmMOT();        
         break;
     case A03:
-        Serial.print(" Acao: ");
-        Serial.println("A03 Estado de motores armados");
+        //Serial.print(" Acao: ");
+        //Serial.println("A03 Estado de motores armados");
         motors.armMOT();
         break;
     case A04:
-        Serial.print(" Acao: ");
-        Serial.println("A04 Motores desarmados");
+        //Serial.print(" Acao: ");
+        //Serial.println("A04 Motores desarmados");
         motors.disarmMOT();        
         break;
     case A05:
-        Serial.print(" Acao: ");
-        Serial.println("A05 Modo manual selecionado");
-        
+        //Serial.print(" Acao: ");
+        //Serial.println("A05 Modo manual selecionado");
+        motors.setMotR_vel(0);
+        motors.setMotL_vel(0);
         break;
     case A06:
-        Serial.print(" Acao: ");
-        Serial.println("A06 Modo automatico selecionado");
+        //Serial.print(" Acao: ");
+        //Serial.println("A06 Modo automatico selecionado");
         
         break;
     case A07:
-        Serial.print(" Acao: ");
-        Serial.println("A07 Retornando a seleção de modos");
-        
+        //Serial.print(" Acao: ");
+        //Serial.println("A07 Retornando a seleção de modos");
+        motors.setMotR_vel(0);
+        motors.setMotL_vel(0);
         break;
     case A08:
         //Serial.print(" Acao: ");
@@ -267,7 +269,7 @@ void taskObterEvento(void *pvParameters) {       // EH AQUI QUE VAI FICAR O BLUE
           message[i] = SerialBT.read();
           //Serial.println(message);
         }
-        Serial.println(message);
+        //Serial.println(message);
         for (int i=0;i<3;i++){
           stringEvento[i] = message[i];
         }      
@@ -290,7 +292,7 @@ void taskObterEvento(void *pvParameters) {       // EH AQUI QUE VAI FICAR O BLUE
           for (int i= 0;i<3;i++){
             stringVel[i] = message[i+4];
           }
-          Serial.println(stringVel);
+          //Serial.println(stringVel);
           if (message[3] == '+'){
             velL = atoi(stringVel);
           }
@@ -300,15 +302,15 @@ void taskObterEvento(void *pvParameters) {       // EH AQUI QUE VAI FICAR O BLUE
           for (int i= 0;i<3;i++){
             stringVel[i] = message[i+8];
           }
-          Serial.println(stringVel);
+          //Serial.println(stringVel);
           if (message[7] == '+'){
             velR = atoi(stringVel);
           }
           if (message[7] == '-'){
             velR = -atoi(stringVel);
           }
-          Serial.println(velL);
-          Serial.println(velR);
+          //Serial.println(velL);
+          //Serial.println(velR);
           codigoEvento = A08;
         }             
       }

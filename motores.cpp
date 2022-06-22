@@ -52,10 +52,10 @@ void Motors::setMotL_front(){
 }
 
 void Motors::setMotR_vel(int vel){
-  Serial.print("Setando velocidade motor direito");
-  Serial.print(vel);
+  //Serial.print("Setando velocidade motor direito");
+  //Serial.print(vel);
   if (vel>=0){
-    Serial.print("Setando velocidade motor direito para frente");
+    //Serial.print("Setando velocidade motor direito para frente");
     setMotR_front();
     vel = map(vel, 0, 100, MIN_SPEED, MAX_SPEED);
     myESCR.speed(vel);
