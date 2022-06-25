@@ -5,7 +5,9 @@
 #include "definicoes_sistema.h"
 #include "motores.h"
 #include "BluetoothSerial.h"
-
+#include <max6675.h>
+#include <string>
+using namespace std;
 
 
 TaskHandle_t Task1;
@@ -28,11 +30,14 @@ int intEvento;
 int velL;
 int velR;
 char stringVel[4];
+int contadorTermopar = 0;
+float readTermopar;
+char stringTermopar[6];
 
 
 Motors motors;
 BluetoothSerial SerialBT;
-
+MAX6675 termopar(GPIO_CLK, GPIO_CS, GPIO_SO);
 
 void callback(esp_spp_cb_event_t event, esp_spp_cb_param_t*param){
   
@@ -86,6 +91,9 @@ int executarAcao(int codigoAcao)
     case A06:
         //Serial.print(" Acao: ");
         //Serial.println("A06 Modo automatico selecionado");
+        while (codigoEvento == AUTOMATICO ){
+          motors.ModAuto();
+        }
         
         break;
     case A07:
@@ -238,7 +246,7 @@ void taskMaqEstados(void *pvParameters) {
         estado = obterProximoEstado(estado, codigoEvento);
         eventoInterno = executarAcao(codigoAcao);
         //Serial.print("Estado: ");
-        //Serial.print(estado);
+        //Serial.println(estado);
         //Serial.print(" Evento: ");
         //Serial.print(codigoEvento);
         //Serial.print(" Acao: ");
@@ -269,7 +277,7 @@ void taskObterEvento(void *pvParameters) {       // EH AQUI QUE VAI FICAR O BLUE
           message[i] = SerialBT.read();
           //Serial.println(message);
         }
-        //Serial.println(message);
+        Serial.println(message);
         for (int i=0;i<3;i++){
           stringEvento[i] = message[i];
         }      
@@ -313,6 +321,13 @@ void taskObterEvento(void *pvParameters) {       // EH AQUI QUE VAI FICAR O BLUE
           //Serial.println(velR);
           codigoEvento = A08;
         }             
+      }
+      if (contadorTermopar++ == 500){
+        readTermopar = termopar.readCelsius();
+        sprintf(stringTermopar,"%.2f",readTermopar);
+        Serial.println(stringTermopar);
+        SerialBT.print(stringTermopar);
+        contadorTermopar = 0;
       }
     }
     else {

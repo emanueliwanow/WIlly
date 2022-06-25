@@ -21,6 +21,7 @@ class Motors {
     void setMotL_front();
     void setMotR_vel(int vel);
     void setMotL_vel(int vel);
+    void ModAuto();
 
   
 };

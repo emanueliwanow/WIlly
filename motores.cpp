@@ -17,6 +17,9 @@ void Motors::setupMOT(){
   pinMode(Rele4, OUTPUT);
   pinMode(motor1, OUTPUT);
   pinMode(motor2, OUTPUT);
+  pinMode(buttonL,INPUT);
+  pinMode(buttonR,INPUT);
+ 
 }
 
 void Motors::armMOT(){
@@ -81,4 +84,8 @@ void Motors::setMotL_vel(int vel){
     vel = map(vel, 0, 100, MIN_SPEED, MAX_SPEED);
     myESCL.speed(vel);
   }
+}
+
+void Motors::ModAuto(){
+  
 }
