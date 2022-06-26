@@ -87,5 +87,24 @@ void Motors::setMotL_vel(int vel){
 }
 
 void Motors::ModAuto(){
+ 
+  int ButL = digitalRead(buttonL);
+  int ButR = digitalRead(buttonR);
   
-}
+  if ((ButL == 0) && (ButR == 0)){
+    //Serial.println("Indo pra frente");
+    Serial.println(ButL);
+    Serial.println(ButR);
+    setMotR_vel(50);
+    setMotL_vel(50);
+  }
+  else{
+    setMotL_vel(-50);
+    setMotR_vel(30);
+    delay(500);
+    }
+    
+  }
+  
+  
+  

@@ -52,8 +52,8 @@ void callback(esp_spp_cb_event_t event, esp_spp_cb_param_t*param){
   }  
 }
 
-int executarAcao(int codigoAcao)
-{
+int executarAcao(int codigoAcao){ 
+    const TickType_t xDelay30ms = pdMS_TO_TICKS(30);
     int retval;
 
     retval = NENHUM_EVENTO;
@@ -93,6 +93,7 @@ int executarAcao(int codigoAcao)
         //Serial.println("A06 Modo automatico selecionado");
         while (codigoEvento == AUTOMATICO ){
           motors.ModAuto();
+          vTaskDelay(xDelay30ms);
         }
         
         break;
@@ -325,7 +326,7 @@ void taskObterEvento(void *pvParameters) {       // EH AQUI QUE VAI FICAR O BLUE
       if (contadorTermopar++ == 500){
         readTermopar = termopar.readCelsius();
         sprintf(stringTermopar,"%.2f",readTermopar);
-        Serial.println(stringTermopar);
+        //Serial.println(stringTermopar);
         SerialBT.print(stringTermopar);
         contadorTermopar = 0;
       }

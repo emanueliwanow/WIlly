@@ -51,8 +51,8 @@
 #define MIN_SPEED 1040 // speed just slow enough to turn motor off
 #define MAX_SPEED 1240 // speed where my motor drew 3.6 amps at 12v.
 
-#define buttonL 34
-#define buttonR 35
+#define buttonL 22
+#define buttonR 23
 
 #define GPIO_SO       27
 #define GPIO_CS       14
